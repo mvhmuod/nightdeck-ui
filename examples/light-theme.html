@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>nightdeck-ui - light theme example</title>
+    <link rel="stylesheet" href="../dist/nightdeck.css" />
+    <style>
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+        box-sizing: border-box;
+        background: #f1f4f7;
+      }
+
+      .nd-root {
+        --nd-bg: #f4f6f8;
+        --nd-panel: #ffffff;
+        --nd-panel-2: #edf1f4;
+        --nd-line: #cbd5dc;
+        --nd-edge: #8999a4;
+
+        --nd-text: #1d2933;
+        --nd-dim: #52616b;
+
+        --nd-accent: #006d83;
+        --nd-on: #427a12;
+        --nd-warn: #b42318;
+        --nd-full: #806000;
+
+        --nd-track: #d6dee4;
+        --nd-box: #aebbc4;
+
+        --nd-btn-top: #e8edf1;
+        --nd-btn-bottom: #d5dde3;
+
+        --nd-stripe: linear-gradient(
+          90deg,
+          #8a41a8,
+          var(--nd-accent) 45%,
+          var(--nd-on)
+        );
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="app"></div>
+    <script src="../dist/nightdeck.js"></script>
+    <script>
+      // One panel with every kind of item. Edit the config to try things out.
+      const panel = Nightdeck.create("#app", {
+        title: "Control",
+        version: "nightdeck-ui example",
+        tabs: {
+          display: [
+            {
+              type: "toggle",
+              id: "vsync",
+              label: "vertical sync",
+              value: true,
+            },
+            { type: "toggle", id: "hdr", label: "hdr output" },
+            {
+              type: "toggle",
+              id: "fps",
+              label: "show fps counter",
+              value: true,
+            },
+            { type: "toggle", id: "blur", label: "motion blur" },
+            {
+              type: "slider",
+              id: "brightness",
+              label: "brightness",
+              value: 60,
+            },
+            {
+              type: "slider",
+              id: "fov",
+              label: "field of view",
+              value: 90,
+              min: 60,
+              max: 120,
+              unit: "°",
+            },
+            {
+              type: "select",
+              id: "quality",
+              label: "quality",
+              options: ["low", "medium", "high", "ultra"],
+              value: "high",
+            },
+          ],
+          status: [
+            { type: "meter", id: "cpu", label: "cpu", value: 32 },
+            {
+              type: "meter",
+              id: "memory",
+              label: "memory",
+              value: 64,
+              text: "10.2 / 16 GB",
+            },
+            {
+              type: "meter",
+              id: "disk",
+              label: "disk",
+              value: 100,
+              text: "full",
+            },
+            { type: "info", id: "uptime", label: "running for", value: "0 s" },
+            { type: "info", id: "host", label: "build", value: "0.1.0" },
+          ],
+          account: [
+            {
+              type: "text",
+              id: "name",
+              label: "display name",
+              placeholder: "your name",
+            },
+            {
+              type: "select",
+              id: "lang",
+              label: "language",
+              options: [
+                { value: "en", label: "English" },
+                { value: "de", label: "Deutsch" },
+              ],
+            },
+            { type: "toggle", id: "news", label: "newsletter" },
+            { type: "button", id: "save", label: "save", variant: "accent" },
+            {
+              type: "button",
+              id: "logout",
+              label: "sign out",
+              variant: "danger",
+            },
+          ],
+        },
+        presets: {
+          quality: { hdr: true, blur: true, quality: "ultra", brightness: 70 },
+          performance: {
+            hdr: false,
+            blur: false,
+            vsync: false,
+            quality: "low",
+          },
+        },
+        onChange(id, value, all) {
+          /* save the settings, update your app, ... */
+        },
+        onAction(id) {
+          panel.log("button pressed: " + id);
+        },
+      });
+
+      // live values for the status tab
+      const start = Date.now();
+      setInterval(() => {
+        panel.set("cpu", 20 + Math.random() * 50);
+        panel.set("uptime", Math.round((Date.now() - start) / 1000) + " s");
+      }, 1000);
+    </script>
+  </body>
+</html>
