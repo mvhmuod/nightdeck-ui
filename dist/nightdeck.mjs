@@ -95,6 +95,7 @@ function nightdeckFactory() {
         case "toggle":
           wrap = el("label", "nd-opt");
           input = el("input"); input.type = "checkbox"; input.checked = !!c.value;
+          input.setAttribute("role", "switch");
           wrap.append(input, el("span", "nd-box"), document.createTextNode(c.label || c.id));
           c.read = function () { return input.checked; };
           c.write = function (v) { input.checked = !!v; };

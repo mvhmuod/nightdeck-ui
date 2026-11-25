@@ -47,6 +47,18 @@ test("builds tabs, panes and items", () => {
   assert.equal(doc.querySelector(".nd-title").textContent, "Test");
 });
 
+test("exposes a labelled switch with native checked state", () => {
+  const { doc, panel } = setup(config());
+  const input = doc.querySelector('input[role="switch"]');
+  assert.ok(input);
+  assert.equal(input.type, "checkbox");
+  assert.equal(input.labels[0].textContent, "toggle a");
+  assert.equal(input.checked, true);
+  input.click();
+  assert.equal(input.checked, false);
+  assert.equal(panel.get("a"), false);
+});
+
 test("get, set and values", () => {
   const { panel } = setup(config());
   assert.deepEqual(plain(panel.values()), { a: true, s: 40, q: "low", t: "x" });
