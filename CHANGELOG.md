@@ -10,3 +10,4 @@ All notable changes to this project are listed here. Versions follow [Semantic V
 - Keyboard navigation for tabs (arrow keys, Home, End) and screen reader roles.
 - Theming through CSS variables.
 - Builds for script tag, CommonJS, AMD and ES modules, plus minified files for CDNs.
+- Keep controls and the console interactive inside Electron draggable window regions.

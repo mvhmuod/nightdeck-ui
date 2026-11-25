@@ -143,3 +143,12 @@
   .nd-side { width: auto; }
   .nd-tabs { flex-direction: row; flex-wrap: wrap; }
 }
+
+/* Electron: keep controls usable inside custom draggable window regions. */
+.nd-root button,
+.nd-root input,
+.nd-root select,
+.nd-root .nd-opt,
+.nd-root .nd-slider,
+.nd-root .nd-field,
+.nd-root .nd-console { -webkit-app-region: no-drag; }
